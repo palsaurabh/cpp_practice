@@ -1,1 +1,11 @@
-bazel run @gtest//:archive
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "googletest",
+#    sha256 = "53de8c75150430c217550ec6bb413029300120407f2de02ea8e20e89675f5e94",
+    strip_prefix = "googletest-1.14.0",
+    urls = [
+        "https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip",
+    ],
+)
+

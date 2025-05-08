@@ -17,15 +17,11 @@
     */
    class ConcreteProduct1 : public Product {
     public:
-     std::string Operation() const override {
-       return "{Result of the ConcreteProduct1}";
-     }
+     std::string Operation() const override;
    };
    class ConcreteProduct2 : public Product {
     public:
-     std::string Operation() const override {
-       return "{Result of the ConcreteProduct2}";
-     }
+     std::string Operation() const override;
    };
    
    /**
@@ -50,14 +46,7 @@
       * returning a different type of product from it.
       */
    
-     std::string SomeOperation() const {
-       // Call the factory method to create a Product object.
-       Product* product = this->FactoryMethod();
-       // Now, use the product.
-       std::string result = "Creator: The same creator's code has just worked with " + product->Operation();
-       delete product;
-       return result;
-     }
+     std::string SomeOperation() const;
    };
    
    /**
@@ -71,15 +60,11 @@
       * way the Creator can stay independent of concrete product classes.
       */
     public:
-     Product* FactoryMethod() const override {
-       return new ConcreteProduct1();
-     }
+     Product* FactoryMethod() const override ;
    };
    
    class ConcreteCreator2 : public Creator {
     public:
-     Product* FactoryMethod() const override {
-       return new ConcreteProduct2();
-     }
+     Product* FactoryMethod() const override ;
    };
    
