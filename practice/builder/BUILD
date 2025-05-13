@@ -1,17 +1,17 @@
 cc_binary(
-    name="factory_ex",
+    name="builder_ex",
     srcs=glob(["app/*.cpp"]),
-    copts=["-Ifactory_example/include"],
+    copts=["-Ibuilder/include"],
     deps=[
-        ":factory_ex_lib",
+        ":builder_ex_lib",
     ],
 )
 
 cc_library(
-    name="factory_ex_lib",
+    name="builder_ex_lib",
     srcs=glob(["lib/*.cpp"]),
     hdrs=glob(["include/*.hpp"]),
-    copts=["-Ifactory_example/include"],
+    copts=["-Ibuilder/include"],
     visibility=["//visibility:public"],
 )
 
