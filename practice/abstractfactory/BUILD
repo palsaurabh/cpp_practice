@@ -1,12 +1,16 @@
 cc_binary(
     name="abstractfactory_ex",
-    srcs=["main.cpp"],
-    deps=[":abstractfactory_lib"],
+    srcs=glob(["app/*.cpp"]),
+    copts=["-Iabstractfactory/include"],
+    deps=[
+        ":abstractfactory_lib",
+    ],
 )
 
 cc_library(
     name="abstractfactory_lib",
-    srcs=["abstractfactory_lib.cpp"],
-    hdrs=["abstractfactory.hpp"],
+    srcs=glob(["lib/*.cpp"]),
+    hdrs=glob(["include/*.hpp"]),
+    copts=["-Iabstractfactory/include"],
     visibility=["//visibility:public"],
 )

@@ -27,20 +27,31 @@
  * In other words, Prototype design pattern lets us copy an object without having the need to know 
  * the class details of the object.
  *  */
-concretePrototype::concretePrototype(concretePrototype &cp)
+// concretePrototype::concretePrototype(concretePrototype &cp)
+// {
+//   std::cout<<"Copy constructor called\n";
+//   this->cp_att1 = cp.cp_att1;
+//   this->cp_att2 = cp.cp_att2;
+// }
+
+Prototype *concretePrototype1::Clone()
 {
-  this->cp_att1 = cp.cp_att1;
-  this->cp_att2 = cp.cp_att2;
+  std::cout<<"Clone method of concretePrototype1 called\n";
+  return new concretePrototype1(*this);
 }
 
-Prototype *concretePrototype::Clone()
+void concretePrototype1::printPrototype()
 {
-  return new concretePrototype(*this);
+  std::cout<<"cp1_att:"<<cp1_att<<"prototypeName: "<<prototypeName<<"\n";
 }
 
-void concretePrototype::printPrototype()
+Prototype *concretePrototype2::Clone()
 {
-  std::cout<<"cp_att1:"<<cp_att1<<"cp_att2:"<<cp_att2<<"\n";
+  std::cout<<"Clone method of concretePrototype2 called\n";
+  return new concretePrototype2(*this);
 }
 
-
+void concretePrototype2::printPrototype()
+{
+  std::cout<<"cp2_att:"<<cp2_att<<"prototypeName: "<<prototypeName<<"\n";
+}

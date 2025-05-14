@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <unordered_map>
 /**
  * Prototype design pattern:
  * 
@@ -34,25 +35,66 @@
 class Prototype
 {
   public:
+    std::string prototypeName;
+    Prototype(std::string name): prototypeName{name}{}
     virtual ~Prototype(){}
     virtual Prototype *Clone() = 0;
     virtual void printPrototype() = 0;
 
 };
 /*
-* concretePrototype Class
+* concretePrototype1 Class
 */
-class concretePrototype : public Prototype
+class concretePrototype1 : public Prototype
 {
   private:
-    int cp_att1;
-    int cp_att2;
+    int cp1_att;
   public:
-    concretePrototype(){}
-    concretePrototype(int att1, int att2):cp_att1{att1}, cp_att2{att2}{}
-    concretePrototype(concretePrototype &cp);
+    concretePrototype1(int att1, std::string prototypeName): Prototype{prototypeName}, cp1_att{att1}{}
+    // concretePrototype(concretePrototype &cp);//Copy constructor is not needed as the class does not have any pointers
     Prototype* Clone() override;
-    void printPrototype();
+    void printPrototype() override;
 };
 
+/*
+* ConcretePrototype2 Class
+*/
+class concretePrototype2: public Prototype
+{
+  private :
+    int cp2_att;
+  public:
+  concretePrototype2(int attr1, std::string prototypeName):Prototype{prototypeName},cp2_att{attr1} {}
+  Prototype* Clone() override;
+  void printPrototype() override;
+};
+
+class prototypeFactory
+{
+  private:
+    std::unordered_map<std::string, Prototype*> prototypes_;
+  public:
+    prototypeFactory()
+    {
+      prototypes_["cp1"] = new concretePrototype1(1, "cp1");
+      prototypes_["cp2"] = new concretePrototype2(2, "cp2");
+    }
+
+    Prototype *createPrototype(const std::string &prototypeName)
+    {
+      if (prototypes_.find(prototypeName) != prototypes_.end())
+      {
+        return prototypes_[prototypeName]->Clone();
+      }
+      return nullptr;
+    }
+
+    ~prototypeFactory()
+    {
+      for (auto &pair : prototypes_)
+      {
+        delete pair.second;
+      }
+    }
+};
 
