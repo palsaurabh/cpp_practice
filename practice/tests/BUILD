@@ -19,3 +19,14 @@ cc_test(
         "//builder:builder_ex_lib",
     ],
 )
+
+cc_test(
+    name = "prototype_ex_test",
+    srcs = ["prototype_ex_test.cpp"],
+    copts= ["-Iprototype/include",],
+    deps = [
+        "@googletest//:gtest",
+        "@googletest//:gtest_main",
+        "//prototype:prototype_ex_lib",
+    ],
+)

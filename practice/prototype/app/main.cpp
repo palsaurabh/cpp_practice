@@ -16,5 +16,9 @@ int main() {
   prototypeFactory pf;
   Prototype *cp1copy2 = pf.createPrototype("cp1");
   cp1copy2->printPrototype();
+
+  delete cp1copy;
+  delete cp2copy;
+  delete cp1copy2;  
   return 0;
 }

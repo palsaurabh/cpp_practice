@@ -37,7 +37,7 @@ class Prototype
   public:
     std::string prototypeName;
     Prototype(std::string name): prototypeName{name}{}
-    virtual ~Prototype(){}
+    virtual ~Prototype(){ std::cout << "Destructor of Prototype called\n"; }
     virtual Prototype *Clone() = 0;
     virtual void printPrototype() = 0;
 
@@ -51,6 +51,7 @@ class concretePrototype1 : public Prototype
     int cp1_att;
   public:
     concretePrototype1(int att1, std::string prototypeName): Prototype{prototypeName}, cp1_att{att1}{}
+    ~concretePrototype1() { std::cout << "Destructor of concretePrototype1 called\n"; }
     // concretePrototype(concretePrototype &cp);//Copy constructor is not needed as the class does not have any pointers
     Prototype* Clone() override;
     void printPrototype() override;
