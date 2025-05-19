@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
-#include "adapter_ex.hpp"
+#include "bridge_ex.hpp"
 /**
  * Adapter design pattern:
  * Thread-unsafe version

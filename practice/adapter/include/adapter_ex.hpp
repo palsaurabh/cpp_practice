@@ -28,3 +28,52 @@
  * both the client and the new library.
  *  */
 
+/**
+ * Example for this we will take here is:
+ * Suppose there is a round hole. This class describes a hole and also tests whether a particular 
+ * object fits or go through the hole. There is a roundPeg object with radius attribute. The hole
+ * class checks if the radius of the object is less than the its own radius and returns result 
+ * accordingly. The interface provided by Hole class takes in a roundPeg. 
+ * But now we have a cuboid. We need to check if the cuboid also passes through the hole or now.
+ * We cannot directly pass the cuboid object through the Hole as it only supports roundPeg. 
+ * So we can create an adapter which converts a cuboid object to a roundPeg object before passing
+ * it to the hole object. 
+ * An adapter can be created which takes in a cuboid object but behaves as a roundPeg. After this 
+ * conversion, this adapter object can be checked if it passes through the hole or not. 
+ */
+class roundPeg;
+ class Hole 
+ {
+    private:
+        int radius;
+    public:
+        Hole(int radius):radius{radius}{}
+        bool fits(const roundPeg &rp) const;
+ };
+
+class roundPeg
+{
+    private:
+        int radius;
+    public:
+        roundPeg(int radius):radius{radius}{}
+        virtual int getRadius() const ;
+};
+
+class squarePeg
+{
+    private:
+        int side;
+    public:
+        squarePeg(int side):side{side}{}
+        int getSide() const;
+};
+
+class squarePegAdapter : public roundPeg
+{
+    private:
+        squarePeg sqPeg;
+    public:
+        squarePegAdapter(squarePeg sqPeg): roundPeg(0), sqPeg{sqPeg}{}
+        int getRadius() const override;
+};
