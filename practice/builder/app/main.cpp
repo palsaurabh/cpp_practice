@@ -7,7 +7,7 @@ int main() {
   shelterMakingDirector *Director = new shelterMakingDirector(Builder);
   Director->createLargeShelter();
   Palace *palace = Builder.getProduct();
-  palace->listHouseDetails();
+  std::cout<<palace->listShelterDetails();
   delete palace;
   return 0;
 }

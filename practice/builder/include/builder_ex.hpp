@@ -57,8 +57,9 @@
         precious_stones = 1,
         max = 2,
       };
+      const std::string shelterName{"Palace"};
       material_used use{material_used::diamonds};
-      void listHouseDetails();
+      std::string listShelterDetails();
 };
    
 /*
@@ -75,8 +76,9 @@
         wood = 1,
         max = 2,
       };
+      const std::string shelterName{"House"};
       material_used use{material_used::bricks};
-      void listHouseDetails();
+      std::string listShelterDetails();
 };
 
 

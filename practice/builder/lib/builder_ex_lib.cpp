@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "builder_ex.hpp"
 /**
  * Builder design pattern is useful when the product that needs to be created
@@ -40,20 +41,24 @@
 /**
  * Palace Class.
  */
-void Palace::listHouseDetails()
+std::string Palace::listShelterDetails()
 {
-  std::cout<<"Windows:"<<numWindows<<'\n';
-  std::cout<<"Bedrooms:"<<numBedrooms<<'\n';
-  std::cout<<"HasPool?:"<<hasPool<<'\n';
-  std::cout<<"material used:"<<static_cast<int>(use)<<'\n';
+  std::stringstream details{}; 
+  details<<"Windows:"<<numWindows<<'\n';
+  details<<"Bedrooms:"<<numBedrooms<<'\n';
+  details<<"HasPool?:"<<hasPool<<'\n';
+  details<<"material used:"<<static_cast<int>(use)<<'\n';
+  return details.str();
 }
    
-void House::listHouseDetails()
+std::string House::listShelterDetails()
 {
-  std::cout<<"Windows:"<<numWindows<<'\n';
-  std::cout<<"Bedrooms:"<<numBedrooms<<'\n';
-  std::cout<<"HasPool?:"<<hasPool<<'\n';
-  std::cout<<"material used:"<<static_cast<int>(use)<<'\n';
+  std::stringstream details{}; 
+  details<<"Windows:"<<numWindows<<'\n';
+  details<<"Bedrooms:"<<numBedrooms<<'\n';
+  details<<"HasPool?:"<<hasPool<<'\n';
+  details<<"material used:"<<static_cast<int>(use)<<'\n';
+  return details.str();
 }
 
 
@@ -139,7 +144,7 @@ void shelterMakingDirector::createSmallShelter()
 {
   shelterObject->createBedrooms(1);
   shelterObject->createWindows(2);
-  shelterObject->setmaterialUsed(2);
+  shelterObject->setmaterialUsed(1);
   shelterObject->addPool(false);
 }
 
