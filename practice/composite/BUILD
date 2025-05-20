@@ -1,17 +1,17 @@
 cc_binary(
-    name="bridge_ex",
+    name="composite_ex",
     srcs=glob(["app/*.cpp"]),
-    copts=["-Ibridge/include"],
+    copts=["-Icomposite/include"],
     deps=[
-        ":bridge_ex_lib",
+        ":composite_ex_lib",
     ],
 )
 
 cc_library(
-    name="bridge_ex_lib",
+    name="composite_ex_lib",
     srcs=glob(["lib/*.cpp"]),
     hdrs=glob(["include/*.hpp"]),
-    copts=["-Ibridge/include"],
+    copts=["-Icomposite/include"],
     visibility=["//visibility:public"],
 )
 

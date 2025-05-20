@@ -3,26 +3,93 @@
 #include <cmath>
 #include "bridge_ex.hpp"
 /**
- * Adapter design pattern:
- * Thread-unsafe version
+ * Bridge Design Pattern
  * */
 
-    bool Hole::fits(const roundPeg &rp) const 
+void Device::togglePower()
+{
+    if (pwr == Device::Power::OFF)
     {
-        return radius > rp.getRadius();
+        pwr = Device::Power::ON;
     }
+    else
+    {
+        pwr = Device::Power::OFF;
+    }
+}
 
-    int roundPeg::getRadius() const
-    {
-        return radius;
-    }
+void Device::setAudio(const int val)
+{
+    if (val <= AUDIO_MAX)
+        audio = val;
+}
 
-    int squarePeg::getSide() const
-    {
-        return side;
-    }
+int Device::getAudio()
+{
+    return audio;
+}
 
-    int squarePegAdapter::getRadius() const
-    {
-        return sqPeg.getSide() * sqrt(2)/2;
-    }
+Device::Power Device::getPower()
+{
+    return pwr;
+}
+
+void Device::setChannel(const int val)
+{
+    if (val <= CHANNEL_MAX)
+        channelNumber = val;
+}
+
+int Device::getChannel()
+{
+    return channelNumber;
+}
+
+void Remote::powerButton()
+{
+    device.togglePower();
+}
+
+void Remote::incrementAudio()
+{
+    auto currAudio = device.getAudio();
+    currAudio += 1;
+    device.setAudio(currAudio);
+}
+
+void Remote::decrementAudio()
+{
+    auto currAudio = device.getAudio();
+    currAudio -= 1;
+    device.setAudio(currAudio);
+}
+
+void Remote::incrementChannel()
+{
+    auto currChannel = device.getChannel();
+    currChannel += 1;
+    device.setChannel(currChannel);
+}
+void Remote::decrementChannel()
+{
+    auto currChannel = device.getChannel();
+    currChannel -= 1;
+    device.setChannel(currChannel);
+}
+
+void TV::setBrightness(const int val)
+{
+    auto currBrightness = getBrightness();
+    currBrightness += 1;
+    setBrightness(currBrightness);
+}
+
+int TV::getBrightness()
+{
+    return brightness;
+}
+
+void advRemote::mute()
+{
+    device.setAudio(0);
+}
