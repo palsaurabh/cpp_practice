@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
-#include "bridge_ex.hpp"
+#include "bridge-cap_ex.hpp"
 /**
  * Bridge Design Pattern
  * */
@@ -124,7 +124,7 @@ void advRemote::incrementBrightness()
     try
     {
         std::cout<<"Try Block "<<__func__<<"\n";
-        TV &tv = dynamic_cast<TV&> (device);    
+        Brightness &tv = dynamic_cast<Brightness&> (device);    
         auto currBrightness = tv.getBrightness();
         currBrightness += 1;
         tv.setBrightness(currBrightness);
@@ -142,7 +142,7 @@ void advRemote::decrementBrightness()
     try
     {
         std::cout<<"Try Block "<<__func__<<"\n";
-        TV &tv = dynamic_cast<TV&> (device);    
+        Brightness &tv = dynamic_cast<Brightness&> (device);    
         auto currBrightness = tv.getBrightness();
         currBrightness -= 1;
         tv.setBrightness(currBrightness);

@@ -1,7 +1,11 @@
 #include <iostream>
 #include <string>
-#include <mutex>
 /**
+ * Bridge-cap is using capability classes for extending the objects rather than adding new methods to 
+ * the classes. It extends or adds capabilities using inheritance. So that we dont have to rely on dynamic_cast
+ * to identify if it is a specific class. Rather than that we can check for interface classes.
+ * 
+ * 
  * Bridge Pattern is used to divide complex classes into abstraction and implementation
  * It allows to divide complex classes or related classes into abstraction and 
  * implementation. Bothe abstraction and implementation can be further developed into
@@ -54,15 +58,21 @@ class Remote
         virtual void decrementChannel();
 };
 
-class TV : public Device
+class Brightness
 {
-public:
-    static constexpr int MAX_BRIGHTNESS{100};
-private:
-    int brightness{20};
-public:
-    void setBrightness(const int val);
-    int getBrightness();
+    public:
+        virtual void setBrightness(const int val) = 0;
+        virtual int getBrightness() = 0;
+};
+
+class TV : public Device, public Brightness
+{
+    public:
+        static constexpr int MAX_BRIGHTNESS{100};
+        void setBrightness(const int val);
+        virtual int getBrightness();
+    private:
+        int brightness{20};
 };
 
 class Radio : public Device
