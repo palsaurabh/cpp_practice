@@ -1,0 +1,72 @@
+docker run -d --mount source=ggg90_docker_volume,target=/home/jenkins/ggg90_docker_volume ggg90_dw2y_image
+
+install rsync
+c.	sudo apt-get install libcurl4-openssl-dev
+d.	sudo apt-get install libcap-dev
+e.	sudo apt-get install libwebsockets-dev
+sudo ln -s /usr/bin/python3 /usr/bin/python
+sudo chmod 777 /opt/ql_crosstools
+
+
+
+docker volume create ggg90_docker_volume
+docker build -t ggg90_docker_image .
+docker stop 09b4a6d4822f
+
+ 1144  cd ag550_docker/
+ 1146  docker buildx build ./
+ 1147  docker list
+ 1148  docker ps
+ 1149  docker container ls
+ 1150  docker ps -a
+ 1151  docker buildx build ./
+ 1152  docker ps -a
+ 1153  docker ps -a --filter "status=exited" --filter "status=created"
+ 1154  docker ps
+ 1155  docker ps -a --filter "status=exited" --filter "status=created"
+ 1156  docker ps -a  --filter "status=created"
+ 1159  cd ag550_docker/
+ 1161  docker build ./
+ 1162  docker images
+ 1163  $ docker run -i -t b9c00d050480 /bin/bash
+ 1168  docker run -v /home/user/wkspaces/ggg90_docker_volume:/home/jenkins/ggg90_docker_volume -it ggg90_dw2y_image
+ 1170  docker run -v /home/user/wkspaces/ggg90_docker_volume:/home/jenkins/ggg90_docker_volume -it ggg90_dw2y_image
+ 1171  docker run -d -p 80:80 -v /home/user/wkspaces/ggg90_docker_volume:/home/jenkins/ggg90_docker_volume ggg90_dw2y_image
+ 1172  docker volume create ggg90_docker_volume
+ 1173  docker volume ls
+ 1174  docker volume rm bg215_app_dev_vol
+ 1175  docker volume rm ggg90_dw2y
+ 1176  docker run -d --mount source=ggg90_docker_volume,target=/home/jenkins/ggg90_docker_volume ggg90_dw2y_image
+ 1177  docker image
+ 1178  docker images
+ 1179  docker ps 
+ 1180  docker images
+ 1181  docker run -v /home/user/wkspaces/ggg90_docker_volume:/home/jenkins/ggg90_docker_volume -it ggg90_dw2y_image
+ 1182  docker ps
+ 1183  docker exec -it 4a90a175f4fc bash
+ 1184  docker ps
+ 1199  docker cp  stack_scripts/ 4a90a175f4fc:/home/jenkins/wksp/ggg90_app/sw/support/
+ 1202  docker cp ls
+ 1203  docker cp /home/user/Downloads/CohdaRelease_590/MS2.0/* 4a90a175f4fc:/home/jenkins/wksp/ggg90_app/sw/support/3rd_party/cohda_stack/amm-app/
+ 1204  docker cp -r /home/user/Downloads/CohdaRelease_590/MS2.0/* 4a90a175f4fc:/home/jenkins/wksp/ggg90_app/sw/support/3rd_party/cohda_stack/amm-app/
+ 1205  docker cp --help
+ 1206  docker cp  /home/user/Downloads/CohdaRelease_590/MS2.0/ 4a90a175f4fc:/home/jenkins/wksp/ggg90_app/sw/support/3rd_party/cohda_stack/amm-app/
+ 1216  docker cp  4a90a175f4fc:/home/jenkins/wksp/ggg90_app/sw/scripts/merge.sh /home/user/Downloads/
+ 1218  docker cp  4a90a175f4fc:/home/jenkins/wksp/ggg90_app/ggg90_bsp/target /home/user/Downloads/
+ 1220  docker run -v /home/user/wkspaces/ggg90_docker_volume:/home/jenkins/ggg90_docker_volume -it ggg90_dw2y_image
+ 1221  history | grep docker
+
+
+1221  sudo apt-get update
+ 1222  sudo apt-get install ca-certificates curl
+ 1223  sudo install -m 0755 -d /etc/apt/keyrings
+ 1224  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+ 1225  sudo chmod a+r /etc/apt/keyrings/docker.asc
+ 1226  echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+ 1227  sudo apt-get update
+ 1228  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+ 1229  docker build .
+
+
+install -luuid
