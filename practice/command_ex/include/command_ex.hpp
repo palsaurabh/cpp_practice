@@ -80,6 +80,7 @@ public:
       history_.pop_back();
       return cmd;
     }
+    return nullptr
   }
 };
 
