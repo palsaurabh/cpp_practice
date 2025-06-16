@@ -73,6 +73,41 @@ public:
         if(rootNode)
             delete rootNode;
     }
+
+    template<typename U> 
+    class BinaryTreeIterator 
+    {
+        Node<U> *current;
+        BinaryTreeIterator(Node<U> root):current{&root}{}
+        bool operator!=(const BinaryTreeIterator& other)
+        {
+            return this->current != other.current;
+        }
+
+        Node<U> *operator++()
+        {
+            if(current->right)
+            {
+                current = current->right;
+                while(current)
+                    current = current->left;
+            }
+            else
+            {
+                current = current->getParent();
+            }
+        }
+    }
+
+    Node<T> *begin()
+    {
+
+    }
+
+    Node<T> *end()
+    {
+
+    }
 };
 
 template <typename U>
