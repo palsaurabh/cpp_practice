@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 #include "strategy_ex.hpp"
-   
-int main() {
-  return 0;
-}
+/**
+ * Composite Design Pattern
+ * */
+

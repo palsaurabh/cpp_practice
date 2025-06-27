@@ -1,17 +1,17 @@
 cc_binary(
-    name="composite_ex",
+    name="strategy_ex",
     srcs=glob(["app/*.cpp"]),
-    copts=["-Icomposite/include"],
+    copts=["-Istrategy/include"],
     deps=[
-        ":composite_ex_lib",
+        ":strategy_ex_lib",
     ],
 )
 
 cc_library(
-    name="composite_ex_lib",
+    name="strategy_ex_lib",
     srcs=glob(["lib/*.cpp"]),
     hdrs=glob(["include/*.hpp"]),
-    copts=["-Icomposite/include"],
+    copts=["-Istrategy/include"],
     visibility=["//visibility:public"],
 )
 
