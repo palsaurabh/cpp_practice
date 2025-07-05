@@ -75,38 +75,77 @@ public:
     }
 
     template<typename U> 
-    class BinaryTreeIterator 
+    class InorderTreeIterator 
     {
+        public:
         Node<U> *current;
-        BinaryTreeIterator(Node<U> root):current{&root}{}
-        bool operator!=(const BinaryTreeIterator& other)
+        InorderTreeIterator(Node<U> *node):current{node}{}
+        bool operator!=(const InorderTreeIterator& other)
         {
             return this->current != other.current;
         }
 
-        Node<U> *operator++()
+        InorderTreeIterator<U>& operator++()
         {
             if(current->right)
             {
                 current = current->right;
-                while(current)
+                while(current->left){
                     current = current->left;
+                }
             }
             else
             {
-                current = current->getParent();
+                while(current->getParent())
+                {
+                    if(current == current->getParent()->right)
+                    {
+                        if(current->getParent())
+                        {
+                            current = current->getParent();
+                            if(!current->getParent())
+                            {
+                                current = nullptr;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            current = nullptr;
+                        }
+
+                    }
+                    else if (current == current->getParent()->left)
+                    {
+                        current = current->getParent();
+                        break;
+                    }
+                }
+
             }
+            return *this;
         }
+
+        Node<U>& operator*()
+        {
+            return *current;
+        }
+    };
+
+    typedef InorderTreeIterator<T> iterator;
+
+    iterator begin()
+    {
+        Node<T> *n = rootNode;
+        if(n)
+            while(n->left)
+                n = n->left;
+        return iterator{n};
     }
 
-    Node<T> *begin()
+    iterator end()
     {
-
-    }
-
-    Node<T> *end()
-    {
-
+        return iterator{nullptr};
     }
 };
 
