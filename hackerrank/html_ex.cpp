@@ -19,7 +19,7 @@ class Tag {
         }
         void printAttrs(){
             for(auto pair: attrs){
-                std::cout<<pair.first<<" : "<< pair.second;
+                //std::cout<<pair.first<<" : "<< pair.second;
             }
         }
         void addSubtag(Tag *tag){
@@ -35,10 +35,48 @@ class Tag {
             std::cout<<tagName<<'\n';
         }
 
+        void printTagNameAndAttributes(){
+            std::cout<<tagName<<'\n';
+            if (!attrs.empty()){
+                for(auto i : attrs){
+                    std::cout<<i.first<<":"<<i.second<<"\n";
+                }
+            }
+        }
+
         void printTag(){
-            printName();
+            // printName();
+            printTagNameAndAttributes();
             for(auto i : subtags)
                 i->printTag();
+        }
+
+        Tag* searchChildren(const std::string& tagName) {
+            for (auto i : subtags)
+            {
+                if(i->tagName == tagName)
+                    return i;
+            }
+            
+            return nullptr;
+        }
+
+        Tag* findTag(const std::string& tagName) {
+            // std::cout<<"Looking for Tag: "<<tagName<<'\n';
+            if(this->tagName == tagName){
+                // std::cout<<"Found tag: "<<tagName<<"\n";
+                return this;
+            }
+            else{
+                for(auto i : subtags){
+                    // std::cout<<"Looking for Tag inside subtags: "<<tagName<<'\n';
+                    Tag* tag = i->findTag(tagName);
+                    if(tag != nullptr){
+                        return tag;
+                    }
+                }
+            }
+            return nullptr;
         }
 
         ~Tag(){
@@ -51,24 +89,20 @@ class hrlm_parser {
     public:
         hrlm_parser(){
         }
-        
+        std::vector<Tag*> tags;
+        int vector_tag = 0;
         int numLines;
         int numQueries;
         std::vector<std::string> lines;
-        std::
         void readInput()
         {
             std::string inputString;
-            char ch;
             std::cin >> numLines >> numQueries;
             std::cin.ignore(); // Ignore the newline character after reading numLines and numQueries
-            std::cout << numLines << ' ' << numQueries << '\n';
+            lines.reserve(numLines + numQueries);
             for (int i = 0; i < numLines + numQueries; i++) {
                 std::getline(std::cin, inputString);
-                lines.push_back(inputString);
-            }
-            for (auto i : lines){
-                std::cout<<inputString<<'\n';
+                lines.emplace_back(inputString);
             }
         }
 
@@ -81,49 +115,91 @@ class hrlm_parser {
             std::string tagName, attrName, attrEqual, attrValue;
             ss >> tagName;
             tag->addName(tagName);
-            std::cout<<tagName<<'\n';
             while(ss >> attrName >> attrEqual >> attrValue){
-                std::cout<<"Attributes: "<<attrName<<attrEqual<<attrValue<<'\n';
                 tag->addAttrs(attrName, attrValue.substr(1, attrValue.length() - 2));
             }
             return tag;
         }
 
-        void parseInput(Tag *tag) {
-            static int l = 0;
+        void parseInput(Tag *parentTag) {
+            static int l = -1;
             l++;
-            std::cout<<"Line No.:"<<l<<'\n';
             if(l < numLines){
-                
                 Tag *tag1 = parseTagLine(l);
-                if(tag1 == nullptr){
-                    if(tag->parentTag != nullptr)
-                        parseInput(tag->parentTag);
+                if(tag1 != nullptr){
+                    // std::cout<<"tag1 is not null\n";
+                    if(parentTag == nullptr)
+                    {
+                        // std::cout<<"Parent tag is null\n";
+                        tags.push_back(tag1);
+                        parseInput(tag1);
+                    }
+                    else 
+                    {
+                        // std::cout<<"Parent tag is not null, adding as subtag\n";
+                        parentTag->addSubtag(tag1);
+                        parseInput(tag1);
+                    }
                 }
                 else{
-                    tag->addSubtag(tag1);
-                    parseInput(tag1);
+                    if(parentTag->parentTag != nullptr)
+                    {
+                        // std::cout<<"tag1 is null, parent->parent is not null\n";
+                        parseInput(parentTag->parentTag);
+                    }
+                    else{
+                        // std::cout<<"tag1 is null, parent->parent is null\n";
+                        parseInput(nullptr);
+                    }
                 }
             }
         }
 
-        void search_query(std::vector<std::string>& list_of_tags, std::string& attr_name){
+        void search_query(const std::vector<std::string>& list_of_tags, const std::string& attr_name){
+            Tag* primaryTag = nullptr;
             
+            for(auto i : tags){
+                if(i->tagName == list_of_tags[0]){
+                    primaryTag = i;
+                    break;
+                }
+            }
+            if(primaryTag == nullptr)
+            {
+                std::cout<<"Not Found!"<<'\n';
+                return;
+            }
+            Tag* tempTag = primaryTag;
+            if(list_of_tags.size() > 1){
+                for(int i = 1; i < list_of_tags.size(); i++)
+                {
+                    tempTag = tempTag->searchChildren(list_of_tags[i]);
+                    if(!tempTag){
+                        std::cout<<"Not Found!"<<'\n';
+                        break;
+                    }
+                }
+            }
+            if(tempTag){
+                auto it = tempTag->attrs.find(attr_name);
+                if(it != tempTag->attrs.end()){
+                    std::cout<<it->second<<"\n";
+                }
+                else
+                    std::cout<<"Not Found!"<<'\n';
+            }
+
         }
         void parseQuery(int lineNo) {
             std::string substr;
             std::vector<std::string> listOfTags;
-            std::istringstream iss(lines[lineNo].substr(0, lines[lineNo].find_first_of('~')));
-            std::string attrName = lines[lineNo].substr(lines[lineNo].find_first_of('~'));
-            std::cout<<"List of tags in Q: "<< lines[lineNo].substr(0, lines[lineNo].find_first_of('~'))<<'\n';
-            std::cout<< "attribute name: " << attrName<<'\n';
+            size_t split_pos =  lines[lineNo].find_first_of('~');
+            std::istringstream iss(lines[lineNo].substr(0, split_pos));
+            std::string attrName = lines[lineNo].substr(split_pos+1);
             while(std::getline(iss, substr, '.')){
                 listOfTags.emplace_back(substr);
             }
-            std::cout<<"List of Tags\n";
-            for(auto i : listOfTags){
-                std::cout<<"i: "<<i<<'\n';
-            }
+            search_query(listOfTags, attrName);
         }
 
         void parseAllQueries(){
@@ -136,17 +212,15 @@ class hrlm_parser {
 int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
     hrlm_parser hrlp{};
-    Tag *tag;
     hrlp.readInput();
-    tag = hrlp.parseTagLine(0);
-    hrlp.parseInput(tag);
-    tag->printTag();
-    std::cout<<"Parsing all queries\n";
+    hrlp.parseInput(nullptr);
     hrlp.parseAllQueries();
     return 0;
 }
 /*
-6 3
+8 3
+<tag0 value0 = "value">
+</tag0>
 <tag1 value = "value">
 <tag2 name = "name">
 </tag2>
