@@ -1,1 +1,52 @@
 *bazel-*
+
+# Build directories
+build/
+cmake-build-*/
+out/
+dist/
+
+# CMake artifacts
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+compile_commands.json
+install_manifest.txt
+
+# Ninja
+build.ninja
+rules.ninja
+.ninja_deps
+.ninja_log
+
+# Compiler outputs
+*.o
+*.obj
+*.lo
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.d
+*.pch
+*.gch
+*.gcno
+*.gcda
+*.gcov
+*.profraw
+*.profdata
+
+# Clang tooling
+.cache/
+.clangd/
+
+# IDE
+.vscode/
+.idea/
