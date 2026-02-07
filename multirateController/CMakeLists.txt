@@ -15,3 +15,7 @@ add_executable(multirate_controller_test
 add_executable(multirate_controller_position_example
     example_position.cpp
 )
+
+add_executable(multirate_controller_runtime
+    runtime_main.cpp
+)

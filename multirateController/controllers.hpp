@@ -7,6 +7,13 @@ inline double proportionalController(double setpoint, double sensor, double kp) 
     return kp * (setpoint - sensor);
 }
 
+// Proportional controller for position vectors.
+inline Position proportionalPositionController(const Position &setpoint,
+                                               const Position &sensor,
+                                               double kp) {
+    return (setpoint - sensor) * kp;
+}
+
 // Cartesian position PI + orientation P controller producing a wrench.
 inline Wrench cartesianPosePIOrientationP(const Pose &setpoint,
                                          const Pose &sensor,
